@@ -1,16 +1,19 @@
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
+from typing import Optional
 
 class Item(BaseModel):
-    value: int
+    name: str = "ali"
+    number1: float
+    number2: int
 
 app = FastAPI()
 database=[]
 
-@app.get('/')
+@app.get('/',response_model=Item)
 def read_root():
-    return {"Hello": "World"}
+    return {"name":"ali","number1":1.1,"number2":1}
 
 @app.get('/items')
 def read_items():
@@ -19,6 +22,7 @@ def read_items():
 @app.post('/items')
 def create_item(item: Item):
     database.append(item)
+    print(item.name)
     return item
 
 @app.put('/items/{item_id}')
