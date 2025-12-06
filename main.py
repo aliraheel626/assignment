@@ -17,6 +17,9 @@ with Session(engine) as session:
         print(row)
     session.commit()
 
+
+    
+
 class GenderEnum(str, Enum):
     MALE = "male"
     FEMALE = "female"
